@@ -35,11 +35,40 @@ public interface GrammarParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOne_line(GrammarParser.One_lineContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GrammarParser#primary}.
+	 * Visit a parse tree produced by the {@code int}
+	 * labeled alternative in {@link GrammarParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimary(GrammarParser.PrimaryContext ctx);
+	T visitInt(GrammarParser.IntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code float}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFloat(GrammarParser.FloatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code char}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChar(GrammarParser.CharContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code string}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(GrammarParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code boolean}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolean(GrammarParser.BooleanContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code bitwiseExpr}
 	 * labeled alternative in {@link GrammarParser#expr}.

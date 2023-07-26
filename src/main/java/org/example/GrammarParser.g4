@@ -27,11 +27,11 @@ one_line:
 
 // expr
 primary:
-      INT
-    | FLOAT
-    | CHAR
-    | STRING
-    | BOOLEAN
+      INT #int
+    | FLOAT #float
+    | CHAR #char
+    | STRING #string
+    | BOOLEAN #boolean
     ;
 expr:
       primary #primaryExpr

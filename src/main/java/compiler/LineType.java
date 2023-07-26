@@ -32,5 +32,5 @@ public enum LineType {
     FOREACH,
     EXPR,
     INC_DEC,
-    ASSIGMENT_OP
+    RETURN, CALL, ASSIGMENT_OP
 }

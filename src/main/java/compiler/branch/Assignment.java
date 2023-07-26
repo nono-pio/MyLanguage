@@ -1,14 +1,16 @@
 package compiler.branch;
 
 import compiler.CompilerTree;
+import compiler.Expression;
 import compiler.ILine;
 import compiler.LineType;
 
-public class Assigment extends CompilerTree implements ILine {
+public class Assignment extends CompilerTree implements ILine {
 
     String id;
-    Expr value;
-    public Assigment(String id, Expr value){
+    Expression value;
+
+    public Assignment(String id, Expression value) {
         this.id = id;
         this.value = value;
     }

@@ -2,6 +2,6 @@ package compiler;
 
 public interface ILine {
 
-LineType getLineType();
+    LineType getLineType();
 
 }

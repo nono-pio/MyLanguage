@@ -48,15 +48,65 @@ public interface GrammarParserListener extends ParseTreeListener {
 	 */
 	void exitOne_line(GrammarParser.One_lineContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#primary}.
+	 * Enter a parse tree produced by the {@code int}
+	 * labeled alternative in {@link GrammarParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimary(GrammarParser.PrimaryContext ctx);
+	void enterInt(GrammarParser.IntContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GrammarParser#primary}.
+	 * Exit a parse tree produced by the {@code int}
+	 * labeled alternative in {@link GrammarParser#primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimary(GrammarParser.PrimaryContext ctx);
+	void exitInt(GrammarParser.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code float}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloat(GrammarParser.FloatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code float}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloat(GrammarParser.FloatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code char}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterChar(GrammarParser.CharContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code char}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitChar(GrammarParser.CharContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code string}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(GrammarParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code string}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(GrammarParser.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code boolean}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean(GrammarParser.BooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolean}
+	 * labeled alternative in {@link GrammarParser#primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean(GrammarParser.BooleanContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code bitwiseExpr}
 	 * labeled alternative in {@link GrammarParser#expr}.
