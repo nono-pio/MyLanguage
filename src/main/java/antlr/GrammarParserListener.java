@@ -328,16 +328,6 @@ public interface GrammarParserListener extends ParseTreeListener {
 	 */
 	void exitVar_ass(GrammarParser.Var_assContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#assOp}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssOp(GrammarParser.AssOpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#assOp}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssOp(GrammarParser.AssOpContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#var_assOp}.
 	 * @param ctx the parse tree
 	 */

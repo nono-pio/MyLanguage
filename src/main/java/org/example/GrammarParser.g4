@@ -105,9 +105,8 @@ var_ass: 'var' ID '=' expr;
 ID += expr
 ID ++
 */
-assOp: '+=' | '-=' | '*=' | '/=' | '&=' | '|=' | '^=' | '>>=' | '<<=' | '%=';
 
-var_assOp: ID assOp expr;
+var_assOp: ID op=('+=' | '-=' | '*=' | '/=' | '&=' | '|=' | '^=' | '>>=' | '<<=' | '%=') expr;
 var_inc_dec: ID inc_dec=('++'|'--');
 
 // While

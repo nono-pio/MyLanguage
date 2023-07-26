@@ -200,12 +200,6 @@ public interface GrammarParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar_ass(GrammarParser.Var_assContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GrammarParser#assOp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssOp(GrammarParser.AssOpContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link GrammarParser#var_assOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

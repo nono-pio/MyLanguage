@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2eb2096c-f51d-4009-a1d9-33628c4c512b" name="Changes" comment="First Upload">
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/Expression.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/IdModifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/Operator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/Primary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/AssignmentOperator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/BinaryExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Boolean_.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Call.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Case.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Char.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Definition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Float_.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/For.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Foreach.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Identifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/If.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Increment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Integer_.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Return.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Switch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/UnaryExpr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/While.java" afterDir="false" />
+    <list default="true" id="2eb2096c-f51d-4009-a1d9-33628c4c512b" name="Changes" comment="Continue Visitor and continue CompilerTree">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/GrammarParser.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/GrammarParser.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/GrammarParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/GrammarParser.java" afterDir="false" />
@@ -34,15 +12,13 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserBaseVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/antlr/GrammarParserVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/ILine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/ILine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/LineType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/LineType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Assigment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Assignment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/String_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Program.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/Operator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/Operator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/If.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/If.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Increment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Increment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/compiler/branch/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/compiler/branch/Return.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GrammarParser.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GrammarParser.g4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MyGrammarVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/MyGrammarVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/myGrammar.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/myGrammar.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,24 +48,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TODO_SCOPE": "All Places",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/nolan/IdeaProjects/untitled/src/main/resources/myGrammar.txt",
-    "onboarding.tips.debug.path": "C:/Users/nolan/IdeaProjects/untitled/src/main/java/org/example/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
-    "settings.editor.splitter.proportion": "0.23310024"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nolan/IdeaProjects/untitled/src/main/resources/myGrammar.txt&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/nolan/IdeaProjects/untitled/src/main/java/org/example/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.23310024&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="compiler.branch" />
@@ -132,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1690302067177</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Continue Visitor and continue CompilerTree">
+      <option name="closed" value="true" />
+      <created>1690383222585</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690383222585</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -164,7 +148,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="First Upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Upload" />
+    <MESSAGE value="Continue Visitor and continue CompilerTree" />
+    <option name="LAST_COMMIT_MESSAGE" value="Continue Visitor and continue CompilerTree" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>

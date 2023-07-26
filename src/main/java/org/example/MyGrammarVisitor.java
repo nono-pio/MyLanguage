@@ -2,12 +2,11 @@ package org.example;
 
 import antlr.GrammarParser;
 import antlr.GrammarParserVisitor;
-import compiler.CompilerTree;
-import compiler.Expression;
-import compiler.ILine;
-import compiler.Operator;
+import compiler.*;
 import compiler.branch.*;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+
+import java.util.List;
 
 public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> implements GrammarParserVisitor<CompilerTree> {
 
@@ -121,9 +120,16 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
 
     @Override
     public CompilerTree visitMultDivExpr(GrammarParser.MultDivExprContext ctx) {
-        return new BinaryExpr((Expression) visit(ctx.expr(0)),
-                (Expression) visit(ctx.expr(1)),
-                ctx.op.getText().contentEquals("*") ? Operator.MULT : Operator.DIV);
+        Expression left = (Expression) visit(ctx.expr(0));
+        Expression right = (Expression) visit(ctx.expr(1));
+        Operator op = switch (ctx.op.getText()) {
+            case "*" -> Operator.MULT;
+            case "/" -> Operator.DIV;
+            case "%" -> Operator.MOD;
+            default -> throw new RuntimeException(" Error ");
+        };
+
+        return new BinaryExpr(left, right, op);
     }
 
     @Override
@@ -162,7 +168,21 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
 
     @Override
     public CompilerTree visitIf(GrammarParser.IfContext ctx) {
-        return null; // TODO: create If plus visit if
+
+        List<GrammarParser.BlockContext> blocks = ctx.block();
+
+        Expression expr = (Expression) visit(ctx.expr());
+        Block content = (Block) visitBlock(blocks.get(0));
+
+        if (blocks.size() == 2) {
+            return new If(expr, content, (Block) visit(blocks.get(1)));
+        }
+
+        if(!ctx.if_().isEmpty()){
+            return new If(expr, content, (If) visitIf(ctx.if_()));
+        }
+
+        return new If(expr, content);
     }
 
     @Override
@@ -173,7 +193,13 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         for (int i = 0; i < cases.length; i++) {
             cases[i] = (Case) visitCase(ctx.case_(i));
         }
-        Block defaultBlock = (Block) visitDefault(ctx.default_(0));
+
+        Block defaultBlock;
+        if (ctx.default_().size() > 0) {
+            defaultBlock = (Block) visitDefault(ctx.default_(0));
+        } else {
+            defaultBlock = null;
+        }
 
         return new Switch(value, cases, defaultBlock);
     }
@@ -210,46 +236,59 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
 
     @Override
     public CompilerTree visitReturn(GrammarParser.ReturnContext ctx) {
-        return null;
+        return new Return((Expression) visit(ctx.expr()));
     }
 
     @Override
     public CompilerTree visitVar_ass(GrammarParser.Var_assContext ctx) {
-        return null;
-    }
-
-    @Override
-    public CompilerTree visitAssOp(GrammarParser.AssOpContext ctx) {
-        return null;
+        return new Assignment(ctx.ID().getText(), (Expression) visit(ctx.expr()));
     }
 
     @Override
     public CompilerTree visitVar_assOp(GrammarParser.Var_assOpContext ctx) {
-        return null;
+        String id = ctx.ID().getText();
+        Expression expr = (Expression) visit(ctx.expr());
+        // '+=' | '-=' | '*=' | '/=' | '&=' | '|=' | '^=' | '>>=' | '<<=' | '%='
+        Operator op = switch (ctx.op.getText()) {
+            case "+=" -> Operator.ADD;
+            case "-=" -> Operator.SUB;
+            case "*" -> Operator.MULT;
+            case "/" -> Operator.DIV;
+            case "&=" -> Operator.BIT_AND;
+            case "|=" -> Operator.BIT_OR;
+            case "^=" -> Operator.BIT_XOR;
+            case ">>=" -> Operator.SHIFTR;
+            case "<<=" -> Operator.SHIFTL;
+            case "%=" -> Operator.MOD;
+            default -> throw new RuntimeException(" Error ");
+        };
+
+        return new AssignmentOperator(id, op, expr);
     }
 
     @Override
     public CompilerTree visitVar_inc_dec(GrammarParser.Var_inc_decContext ctx) {
-        return null;
+        return new Increment(ctx.ID().getText(), ctx.inc_dec.getText().contentEquals("++") ? Operator.INC : Operator.DEC);
     }
 
     @Override
     public CompilerTree visitWhile(GrammarParser.WhileContext ctx) {
-        return null;
+        return new While(false, (Expression) visit(ctx.expr()), (Block) visitBlock(ctx.block()));
     }
 
     @Override
     public CompilerTree visitDo(GrammarParser.DoContext ctx) {
-        return null;
+        return new While(true, (Expression) visit(ctx.expr()), (Block) visitBlock(ctx.block()));
     }
 
     @Override
     public CompilerTree visitFor(GrammarParser.ForContext ctx) {
-        return null;
+        IdModifier idModifier = (IdModifier) visit(ctx.var_assOp().isEmpty() ? ctx.var_inc_dec() : ctx.var_assOp());
+        return new For((Assignment) visitVar_ass(ctx.var_ass()), (Expression) visit(ctx.expr()), idModifier, (Block) visitBlock(ctx.block()));
     }
 
     @Override
     public CompilerTree visitForeach(GrammarParser.ForeachContext ctx) {
-        return null;
+        return new Foreach(ctx.ID().getText(), (Expression) visit(ctx.expr()), (Block) visitBlock(ctx.block()));
     }
 }

@@ -1,1 +1,19 @@
-var x = 4.5 * 80 + 12;
+
+
+var x = 12;
+switch (x) {
+
+    case (1) {
+        var y = x + 7;
+    }
+
+    case (2) {
+        var y = x + 9;
+    }
+
+    default {
+        var y = 0;
+    }
+
+}
+
