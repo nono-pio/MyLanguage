@@ -2,10 +2,9 @@ package compiler.branch;
 
 import compiler.CompilerTree;
 import compiler.Expression;
-import compiler.ILine;
 import compiler.LineType;
 
-public class While extends CompilerTree implements ILine {
+public class While extends CompilerTree implements Line {
 
     boolean isDo;
     Expression condition;

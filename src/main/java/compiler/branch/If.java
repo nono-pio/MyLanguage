@@ -2,10 +2,9 @@ package compiler.branch;
 
 import compiler.CompilerTree;
 import compiler.Expression;
-import compiler.ILine;
 import compiler.LineType;
 
-public class If extends CompilerTree implements ILine {
+public class If extends CompilerTree implements Line {
 
     IfType type;
     Expression expr;
@@ -38,7 +37,7 @@ public class If extends CompilerTree implements ILine {
         return LineType.IF;
     }
 
-    enum IfType{
+    enum IfType {
         If,
         IfElse,
         IfElif

@@ -1,8 +1,11 @@
 package compiler.branch;
 
-import compiler.*;
+import compiler.CompilerTree;
+import compiler.IdModifier;
+import compiler.LineType;
+import compiler.Operator;
 
-public class Increment extends CompilerTree implements ILine, IdModifier {
+public class Increment extends CompilerTree implements Line, IdModifier {
 
     String id;
     Operator op;

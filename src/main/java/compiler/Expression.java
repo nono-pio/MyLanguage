@@ -1,5 +1,9 @@
 package compiler;
 
-public interface Expression extends ILine {
+import compiler.branch.Line;
+
+public interface Expression extends Line {
+
+    TypeExpr getOutputType();
 
 }

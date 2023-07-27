@@ -4,7 +4,8 @@ package org.example;
 import antlr.GrammarLexer;
 import antlr.GrammarParser;
 import compiler.CompilerTree;
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.IOException;
 

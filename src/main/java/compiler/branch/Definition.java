@@ -1,10 +1,9 @@
 package compiler.branch;
 
 import compiler.CompilerTree;
-import compiler.ILine;
 import compiler.LineType;
 
-public class Definition extends CompilerTree implements ILine {
+public class Definition extends CompilerTree implements Line {
 
     String id;
     String[] parameters;

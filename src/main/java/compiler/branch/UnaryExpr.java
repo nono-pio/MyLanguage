@@ -1,10 +1,12 @@
 package compiler.branch;
 
-import compiler.CompilerTree;
-import compiler.Expression;
-import compiler.LineType;
-import compiler.Operator;
+import compiler.*;
 
+/*
+
+('+' | '-' | '~' | '!') expr
+
+*/
 public class UnaryExpr extends CompilerTree implements Expression {
 
     Expression value;
@@ -18,5 +20,24 @@ public class UnaryExpr extends CompilerTree implements Expression {
     @Override
     public LineType getLineType() {
         return LineType.EXPR;
+    }
+
+    @Override
+    public TypeExpr getOutputType() {
+
+        if (!validValueForOperator()) {
+            throw new RuntimeException("Invalid Type " + value.getOutputType() + " for Operator " + op.name());
+        }
+
+        return value.getOutputType();
+    }
+
+    public boolean validValueForOperator() {
+        TypeExpr valueType = value.getOutputType();
+        return switch (op) {
+            case POSITIVE, NEGATIVE, BIT_NOT -> valueType.isNumber();
+            case NOT -> valueType == TypeExpr.BOOLEAN;
+            default -> throw new RuntimeException("Invalid operator");
+        };
     }
 }

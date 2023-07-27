@@ -28,9 +28,11 @@ public enum LineType {
     WHILE,
     DO,
     FOR,
-    ASSIGMENT,
+    ASSIGNMENT,
     FOREACH,
     EXPR,
     INC_DEC,
-    RETURN, CALL, ASSIGMENT_OP
+    RETURN,
+    CALL,
+    BREAK, CONTINUE, ASSIGNMENT_OP
 }

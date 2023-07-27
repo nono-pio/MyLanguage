@@ -1,8 +1,11 @@
 package compiler.branch;
 
-import compiler.*;
+import compiler.CompilerTree;
+import compiler.Expression;
+import compiler.IdModifier;
+import compiler.LineType;
 
-public class For extends CompilerTree implements ILine {
+public class For extends CompilerTree implements Line {
 
     /*
      * for (i = 0, i < 0, i++) {

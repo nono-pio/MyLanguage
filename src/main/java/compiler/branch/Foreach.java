@@ -2,10 +2,9 @@ package compiler.branch;
 
 import compiler.CompilerTree;
 import compiler.Expression;
-import compiler.ILine;
 import compiler.LineType;
 
-public class Foreach extends CompilerTree implements ILine {
+public class Foreach extends CompilerTree implements Line {
 
     String id;
     Expression value;

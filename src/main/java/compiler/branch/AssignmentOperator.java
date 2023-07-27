@@ -2,7 +2,7 @@ package compiler.branch;
 
 import compiler.*;
 
-public class AssignmentOperator extends CompilerTree implements ILine, IdModifier {
+public class AssignmentOperator extends CompilerTree implements Line, IdModifier {
 
     String id;
     Operator op;
@@ -16,6 +16,6 @@ public class AssignmentOperator extends CompilerTree implements ILine, IdModifie
 
     @Override
     public LineType getLineType() {
-        return LineType.ASSIGMENT_OP;
+        return LineType.ASSIGNMENT_OP;
     }
 }

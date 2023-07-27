@@ -1,19 +1,8 @@
-
-
-var x = 12;
-switch (x) {
-
-    case (1) {
-        var y = x + 7;
+main();
+def main() {
+    var i = 10;
+    while (i > 0) {
+        i--;
     }
-
-    case (2) {
-        var y = x + 9;
-    }
-
-    default {
-        var y = 0;
-    }
-
+    return i;
 }
-

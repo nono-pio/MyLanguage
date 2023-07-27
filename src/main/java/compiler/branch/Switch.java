@@ -2,10 +2,9 @@ package compiler.branch;
 
 import compiler.CompilerTree;
 import compiler.Expression;
-import compiler.ILine;
 import compiler.LineType;
 
-public class Switch extends CompilerTree implements ILine {
+public class Switch extends CompilerTree implements Line {
 
     Expression value;
     Case[] cases;

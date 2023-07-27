@@ -6,8 +6,9 @@ program: line*;
 
 // Lines
 block: '{' line* '}';
+// line: ref
 line:
-      (one_line ';')
+      one_line
     | if
     | switch
     | definition
@@ -17,12 +18,20 @@ line:
     | foreach
     ;
 
+// one_line : child[0] ref child[1] ';'
 one_line:
-      expr
+    ( expr
+    | keyword
     | return
     | var_ass
     | var_inc_dec
     | var_assOp
+    ) ';'
+    ;
+
+keyword:
+      'break'
+    | 'continue'
     ;
 
 // expr
@@ -80,14 +89,12 @@ default: 'default' block;
 def ID(ID, ID, ID) {
 }
 */
-parameters: '(' (ID (',' ID)*)? ')';
-definition: 'def' ID parameters block ;
+definition: 'def' ID '(' (ID (',' ID)*)? ')' block ;
 
 /*
 ID(expr, expr)
 */
-call_parameters: '(' (expr (',' expr)*)? ')';
-call: ID call_parameters;
+call: ID '(' (expr (',' expr)*)? ')';
 
 /*
 return
