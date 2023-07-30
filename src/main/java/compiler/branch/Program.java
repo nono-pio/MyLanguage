@@ -4,10 +4,13 @@ import compiler.CompilerTree;
 
 public class Program extends CompilerTree {
 
-    Line[] lines;
+    Block block;
 
-    public Program(Line[] lines) {
-        this.lines = lines;
+    public Program(Block block) {
+        this.block = block;
     }
 
+    public Block getBlock() {
+        return this.block;
+    }
 }

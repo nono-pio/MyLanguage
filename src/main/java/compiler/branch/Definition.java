@@ -1,17 +1,16 @@
 package compiler.branch;
 
 import compiler.CompilerTree;
+import compiler.Function;
 import compiler.LineType;
 
 public class Definition extends CompilerTree implements Line {
 
-    String id;
-    String[] parameters;
+    Function function;
     Block content;
 
-    public Definition(String id, String[] parameters, Block content) {
-        this.id = id;
-        this.parameters = parameters;
+    public Definition(Function function, Block content) {
+        this.function = function;
         this.content = content;
     }
 

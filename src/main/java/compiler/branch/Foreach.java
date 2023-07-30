@@ -3,15 +3,16 @@ package compiler.branch;
 import compiler.CompilerTree;
 import compiler.Expression;
 import compiler.LineType;
+import compiler.Variable;
 
 public class Foreach extends CompilerTree implements Line {
 
-    String id;
+    Variable variable;
     Expression value;
     Block content;
 
-    public Foreach(String id, Expression value, Block content) {
-        this.id = id;
+    public Foreach(Variable variable, Expression value, Block content) {
+        this.variable = variable;
         this.value = value;
         this.content = content;
     }

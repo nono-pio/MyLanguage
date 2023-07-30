@@ -106,7 +106,7 @@ return: 'return' expr?;
 /*
 var ID = expr
 */
-var_ass: 'var' ID '=' expr;
+var_ass: ('var')? ID '=' expr;
 
 /*
 ID += expr

@@ -1,17 +1,14 @@
 package compiler.branch;
 
-import compiler.CompilerTree;
-import compiler.IdModifier;
-import compiler.LineType;
-import compiler.Operator;
+import compiler.*;
 
 public class Increment extends CompilerTree implements Line, IdModifier {
 
-    String id;
+    Variable variable;
     Operator op;
 
-    public Increment(String id, Operator op) {
-        this.id = id;
+    public Increment(Variable variable, Operator op) {
+        this.variable = variable;
         this.op = op;
     }
 

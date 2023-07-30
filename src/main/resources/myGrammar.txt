@@ -1,8 +1,5 @@
-main();
-def main() {
-    var i = 10;
-    while (i > 0) {
-        i--;
-    }
-    return i;
+def add(x, y) {
+    return x + y;
 }
+
+add(1, 2);

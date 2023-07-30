@@ -4,12 +4,12 @@ import compiler.*;
 
 public class AssignmentOperator extends CompilerTree implements Line, IdModifier {
 
-    String id;
+    Variable variable;
     Operator op;
     Expression value;
 
-    public AssignmentOperator(String id, Operator op, Expression value) {
-        this.id = id;
+    public AssignmentOperator(Variable variable, Operator op, Expression value) {
+        this.variable = variable;
         this.op = op;
         this.value = value;
     }

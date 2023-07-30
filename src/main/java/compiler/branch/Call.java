@@ -1,16 +1,14 @@
 package compiler.branch;
 
-import compiler.CompilerTree;
-import compiler.Expression;
-import compiler.LineType;
+import compiler.*;
 
 public class Call extends CompilerTree implements Expression {
 
-    String id;
+    Function function;
     Expression[] parameters;
 
-    public Call(String id, Expression[] parameters) {
-        this.id = id;
+    public Call(Function function, Expression[] parameters) {
+        this.function = function;
         this.parameters = parameters;
     }
 
@@ -18,5 +16,9 @@ public class Call extends CompilerTree implements Expression {
     @Override
     public LineType getLineType() {
         return LineType.CALL;
+    }
+
+    @Override public TypeExpr getOutputType() {
+        return TypeExpr.NONE;
     }
 }

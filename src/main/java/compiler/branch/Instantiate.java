@@ -5,18 +5,18 @@ import compiler.Expression;
 import compiler.LineType;
 import compiler.Variable;
 
-public class Assignment extends CompilerTree implements Line {
+public class Instantiate extends CompilerTree implements Line {
 
     Variable variable;
-    Expression value;
+    Expression expr;
 
-    public Assignment(Variable variable, Expression value) {
+    public Instantiate(Variable variable, Expression expr) {
         this.variable = variable;
-        this.value = value;
+        this.expr = expr;
     }
 
     @Override
     public LineType getLineType() {
-        return LineType.ASSIGNMENT;
+        return LineType.INSTANCIATE;
     }
 }

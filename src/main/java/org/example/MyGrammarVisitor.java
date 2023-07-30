@@ -2,10 +2,7 @@ package org.example;
 
 import antlr.GrammarParser;
 import antlr.GrammarParserVisitor;
-import compiler.CompilerTree;
-import compiler.Expression;
-import compiler.IdModifier;
-import compiler.Operator;
+import compiler.*;
 import compiler.branch.*;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -14,6 +11,17 @@ import java.util.List;
 
 public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> implements GrammarParserVisitor<CompilerTree> {
 
+    Local local = new Local(null);
+
+    void startNewLocal() {
+        this.local = new Local(this.local);
+    }
+    Local endCurrentLocal() {
+        Local local = this.local;
+        this.local = local.parent;
+        return local;
+    }
+
     @Override public CompilerTree visitProgram(GrammarParser.ProgramContext ctx) {
 
         var linesCtx = ctx.line();
@@ -21,16 +29,27 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         for (int i = 0; i < lines.length; i++) {
             lines[i] = (Line) visit(linesCtx.get(i));
         }
-        return new Program(lines);
+        return new Program(new Block(local, lines));
     }
 
-    @Override public CompilerTree visitBlock(GrammarParser.BlockContext ctx) {
+    public Block visitBlock(GrammarParser.BlockContext ctx, boolean createNewLocal) {
+
+        if (createNewLocal) {
+            startNewLocal();
+        }
+
+        // find all line of the block
         var linesCtx = ctx.line();
         var lines = new Line[linesCtx.size()];
         for (int i = 0; i < lines.length; i++) {
             lines[i] = (Line) visit(linesCtx.get(i));
         }
-        return new Block(lines);
+
+        return new Block(endCurrentLocal(), lines);
+    }
+
+    @Override public CompilerTree visitBlock(GrammarParser.BlockContext ctx) {
+        return visitBlock(ctx, true);
     }
 
     @Override public CompilerTree visitLine(GrammarParser.LineContext ctx) {
@@ -129,7 +148,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
     }
 
     @Override public CompilerTree visitIdExpr(GrammarParser.IdExprContext ctx) {
-        return new Identifier(ctx.ID().getText());
+        return new Identifier( local.getVariable(ctx.ID().getText()) );
     }
 
     @Override public CompilerTree visitAndExpr(GrammarParser.AndExprContext ctx) {
@@ -198,25 +217,37 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
 
     @Override public CompilerTree visitDefinition(GrammarParser.DefinitionContext ctx) {
 
-        List<TerminalNode> ids = ctx.ID();
-        String id = ids.get(0).getText();
-        String[] parameters = new String[ids.size() - 1];
-        for (int i = 0; i < parameters.length; i++) {
-            parameters[i] = ids.get(i + 1).getText();
-        }
+        List<TerminalNode> ids = ctx.ID(); // get all ids
 
-        return new Definition(id, parameters, (Block) visitBlock(ctx.block()));
+        // define the function
+        Function function = local.defineFunction( ids.get(0).getText() );
+
+        // start local
+        startNewLocal();
+
+        // get parameters and content of the function
+        Variable[] parameters = new Variable[ids.size() - 1];
+        for (int i = 0; i < parameters.length; i++) {
+            parameters[i] = this.local.instanciateVariable(ids.get(i + 1).getText());
+        }
+        Block content = visitBlock(ctx.block(), false);
+
+        // set parameters to the function
+        function.setParameters(parameters);
+
+        return new Definition(function, content);
     }
 
     @Override public CompilerTree visitCall(GrammarParser.CallContext ctx) {
 
+        // get parameters with context
         List<GrammarParser.ExprContext> exprContexts = ctx.expr();
         Expression[] parameters = new Expression[exprContexts.size()];
         for (int i = 0; i < parameters.length; i++) {
             parameters[i] = (Expression) visit(exprContexts.get(i));
         }
 
-        return new Call(ctx.ID().getText(), parameters);
+        return new Call(this.local.getFunction(ctx.ID().getText()), parameters);
     }
 
     @Override public CompilerTree visitReturn(GrammarParser.ReturnContext ctx) {
@@ -224,7 +255,11 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
     }
 
     @Override public CompilerTree visitVar_ass(GrammarParser.Var_assContext ctx) {
-        return new Assignment(ctx.ID().getText(), (Expression) visit(ctx.expr()));
+
+        if (ctx.VAR() == null) { // x = expr
+            return new Assignment(local.getVariable(ctx.ID().getText()), (Expression) visit(ctx.expr()));
+        } // var x = expr
+        return new Instantiate(local.instanciateVariable(ctx.ID().getText()), (Expression) visit(ctx.expr()));
     }
 
     @Override public CompilerTree visitVar_assOp(GrammarParser.Var_assOpContext ctx) {
@@ -245,11 +280,11 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
             default -> throw new RuntimeException(" Error ");
         };
 
-        return new AssignmentOperator(id, op, expr);
+        return new AssignmentOperator(local.getVariable(id), op, expr);
     }
 
     @Override public CompilerTree visitVar_inc_dec(GrammarParser.Var_inc_decContext ctx) {
-        return new Increment(ctx.ID().getText(), ctx.inc_dec.getText().contentEquals("++") ? Operator.INC : Operator.DEC);
+        return new Increment(local.getVariable(ctx.ID().getText()), ctx.inc_dec.getText().contentEquals("++") ? Operator.INC : Operator.DEC);
     }
 
     @Override public CompilerTree visitWhile(GrammarParser.WhileContext ctx) {
@@ -261,11 +296,29 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
     }
 
     @Override public CompilerTree visitFor(GrammarParser.ForContext ctx) {
-        IdModifier idModifier = (IdModifier) visit(ctx.var_assOp().isEmpty() ? ctx.var_inc_dec() : ctx.var_assOp());
-        return new For((Assignment) visitVar_ass(ctx.var_ass()), (Expression) visit(ctx.expr()), idModifier, (Block) visitBlock(ctx.block()));
+
+        // start a local for assignment, condition and idModifier
+        startNewLocal();
+
+        // get parameters
+        Instantiate variable = (Instantiate) visitVar_ass(ctx.var_ass());
+        Expression condition = (Expression) visit(ctx.expr());
+        IdModifier idModifier = (IdModifier) visit(ctx.var_assOp() == null ? ctx.var_inc_dec() : ctx.var_assOp());
+
+        Block block = visitBlock(ctx.block(), false); // local already created
+
+        return new For(variable, condition, idModifier, block);
     }
 
     @Override public CompilerTree visitForeach(GrammarParser.ForeachContext ctx) {
-        return new Foreach(ctx.ID().getText(), (Expression) visit(ctx.expr()), (Block) visitBlock(ctx.block()));
+
+        Expression expr = (Expression) visit(ctx.expr());
+
+        startNewLocal();
+
+        Variable variable = this.local.instanciateVariable(ctx.ID().getText());
+        Block content = visitBlock(ctx.block(), false);
+
+        return new Foreach(variable, expr, content);
     }
 }

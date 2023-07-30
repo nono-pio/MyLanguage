@@ -11,13 +11,13 @@ public class For extends CompilerTree implements Line {
      * for (i = 0, i < 0, i++) {
      * }
      * */
-    Assignment assignment;
+    Instantiate instantiate;
     Expression condition;
     IdModifier accumulator;
     Block content;
 
-    public For(Assignment assignment, Expression condition, IdModifier accumulator, Block content) {
-        this.assignment = assignment;
+    public For(Instantiate instantiate, Expression condition, IdModifier accumulator, Block content) {
+        this.instantiate = instantiate;
         this.condition = condition;
         this.accumulator = accumulator;
         this.content = content;
