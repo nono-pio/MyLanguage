@@ -17,8 +17,4 @@ public class Call extends CompilerTree implements Expression {
     public LineType getLineType() {
         return LineType.CALL;
     }
-
-    @Override public TypeExpr getOutputType() {
-        return TypeExpr.NONE;
-    }
 }

@@ -24,6 +24,7 @@ one_line:
     | keyword
     | return
     | var_ass
+    | var_init
     | var_inc_dec
     | var_assOp
     ) ';'
@@ -33,6 +34,9 @@ keyword:
       'break'
     | 'continue'
     ;
+
+// type
+type: ID;
 
 // expr
 primary:
@@ -89,7 +93,7 @@ default: 'default' block;
 def ID(ID, ID, ID) {
 }
 */
-definition: 'def' ID '(' (ID (',' ID)*)? ')' block ;
+definition: 'def' type ID '(' (type ID (',' type ID)*)? ')' block ;
 
 /*
 ID(expr, expr)
@@ -106,7 +110,8 @@ return: 'return' expr?;
 /*
 var ID = expr
 */
-var_ass: ('var')? ID '=' expr;
+var_init: type ID ('=' expr)?;
+var_ass: ID '=' expr;
 
 /*
 ID += expr
@@ -134,10 +139,10 @@ do: 'do' block 'while' '(' expr ')';
 for(ID=expr, expr %condition, ID++ or ID += expr) {
 }
 */
-for: 'for' '(' var_ass ',' expr ',' (var_assOp | var_inc_dec) ')' block;
+for: 'for' '(' var_init ',' expr ',' (var_assOp | var_inc_dec) ')' block;
 
 /*
 foreach(ID:expr){
 }
 */
-foreach: 'foreach' '(' ID ':' expr ')' block;
+foreach: 'foreach' '(' type ID ':' expr ')' block;

@@ -58,6 +58,16 @@ public interface GrammarParserListener extends ParseTreeListener {
 	 */
 	void exitKeyword(GrammarParser.KeywordContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link GrammarParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(GrammarParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(GrammarParser.TypeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code int}
 	 * labeled alternative in {@link GrammarParser#primary}.
 	 * @param ctx the parse tree
@@ -307,6 +317,16 @@ public interface GrammarParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReturn(GrammarParser.ReturnContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link GrammarParser#var_init}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_init(GrammarParser.Var_initContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link GrammarParser#var_init}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_init(GrammarParser.Var_initContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GrammarParser#var_ass}.
 	 * @param ctx the parse tree

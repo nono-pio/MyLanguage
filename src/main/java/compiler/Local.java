@@ -12,9 +12,9 @@ public class Local {
         this.parent = parent;
     }
 
-    public Variable instanciateVariable(String id) {
+    public Variable instanciateVariable(String id, TypeClass type) {
 
-        Variable variable = new Variable(id);
+        Variable variable = new Variable(id, type);
         localVariables.put(id, variable);
         return variable;
     }
@@ -32,9 +32,9 @@ public class Local {
         return variable;
     }
 
-    public Function defineFunction(String id) {
+    public Function defineFunction(String id, TypeClass outType) {
 
-        Function function = new Function(id);
+        Function function = new Function(id, outType);
         localFunctions.put(id, function);
         return function;
     }

@@ -1,5 +1,21 @@
-def add(x, y) {
-    return x + y;
+
+def int add(int x,int y) {
+return x + y; // this is a comment
 }
 
-add(1, 2);
+def int mult(int x,int y,bool isDiv) {
+
+    def int div(int x,int y) {
+        return x / y;
+    }
+
+    if (isDiv) {
+        return div(x, y);
+    }
+
+    return x * y;
+}
+
+int i;
+i = add(mult(1, 2, true), add(mult(3, 4, false), 3));
+i++;

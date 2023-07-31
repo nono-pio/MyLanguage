@@ -41,6 +41,12 @@ public interface GrammarParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKeyword(GrammarParser.KeywordContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link GrammarParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(GrammarParser.TypeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code int}
 	 * labeled alternative in {@link GrammarParser#primary}.
 	 * @param ctx the parse tree
@@ -187,6 +193,12 @@ public interface GrammarParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitReturn(GrammarParser.ReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link GrammarParser#var_init}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar_init(GrammarParser.Var_initContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GrammarParser#var_ass}.
 	 * @param ctx the parse tree

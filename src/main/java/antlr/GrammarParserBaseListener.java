@@ -77,6 +77,18 @@ public class GrammarParserBaseListener implements GrammarParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterType(GrammarParser.TypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitType(GrammarParser.TypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInt(GrammarParser.IntContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -336,6 +348,18 @@ public class GrammarParserBaseListener implements GrammarParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitReturn(GrammarParser.ReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVar_init(GrammarParser.Var_initContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVar_init(GrammarParser.Var_initContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -53,6 +53,13 @@ public class GrammarParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitType(GrammarParser.TypeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitInt(GrammarParser.IntContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -201,6 +208,13 @@ public class GrammarParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitReturn(GrammarParser.ReturnContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitVar_init(GrammarParser.Var_initContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -68,6 +68,10 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         };
     }
 
+    @Override public CompilerTree visitType(GrammarParser.TypeContext ctx) {
+        return null;
+    }
+
     @Override public CompilerTree visitInt(GrammarParser.IntContext ctx) {
         return new Integer_(Integer.parseInt(ctx.INT().getText()));
     }
@@ -148,7 +152,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
     }
 
     @Override public CompilerTree visitIdExpr(GrammarParser.IdExprContext ctx) {
-        return new Identifier( local.getVariable(ctx.ID().getText()) );
+        return null;
     }
 
     @Override public CompilerTree visitAndExpr(GrammarParser.AndExprContext ctx) {
@@ -182,7 +186,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
             return new If(expr, content, (Block) visit(blocks.get(1)));
         }
 
-        if (!ctx.if_().isEmpty()) {
+        if (ctx.if_() != null) {
             return new If(expr, content, (If) visitIf(ctx.if_()));
         }
 
@@ -218,9 +222,10 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
     @Override public CompilerTree visitDefinition(GrammarParser.DefinitionContext ctx) {
 
         List<TerminalNode> ids = ctx.ID(); // get all ids
+        List<GrammarParser.TypeContext> types = ctx.type();
 
         // define the function
-        Function function = local.defineFunction( ids.get(0).getText() );
+        Function function = local.defineFunction( ids.get(0).getText(), TypeClass.getType(types.get(0).getText()) );
 
         // start local
         startNewLocal();
@@ -228,7 +233,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         // get parameters and content of the function
         Variable[] parameters = new Variable[ids.size() - 1];
         for (int i = 0; i < parameters.length; i++) {
-            parameters[i] = this.local.instanciateVariable(ids.get(i + 1).getText());
+            parameters[i] = this.local.instanciateVariable(ids.get(i + 1).getText(), TypeClass.getType(types.get(i + 1).getText()));
         }
         Block content = visitBlock(ctx.block(), false);
 
@@ -254,12 +259,17 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         return new Return((Expression) visit(ctx.expr()));
     }
 
-    @Override public CompilerTree visitVar_ass(GrammarParser.Var_assContext ctx) {
+    @Override public CompilerTree visitVar_init(GrammarParser.Var_initContext ctx) {
 
-        if (ctx.VAR() == null) { // x = expr
+        Variable variable = local.instanciateVariable(ctx.ID().getText(),
+                TypeClass.getType(ctx.type().getText()));
+        Expression expression = ctx.expr() == null ? variable.type.defaultValue : (Expression) visit(ctx.expr());
+
+        return new Instantiate(variable, expression);
+    }
+
+    @Override public CompilerTree visitVar_ass(GrammarParser.Var_assContext ctx) {
             return new Assignment(local.getVariable(ctx.ID().getText()), (Expression) visit(ctx.expr()));
-        } // var x = expr
-        return new Instantiate(local.instanciateVariable(ctx.ID().getText()), (Expression) visit(ctx.expr()));
     }
 
     @Override public CompilerTree visitVar_assOp(GrammarParser.Var_assOpContext ctx) {
@@ -301,7 +311,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
         startNewLocal();
 
         // get parameters
-        Instantiate variable = (Instantiate) visitVar_ass(ctx.var_ass());
+        Instantiate variable = (Instantiate) visitVar_init(ctx.var_init());
         Expression condition = (Expression) visit(ctx.expr());
         IdModifier idModifier = (IdModifier) visit(ctx.var_assOp() == null ? ctx.var_inc_dec() : ctx.var_assOp());
 
@@ -316,7 +326,7 @@ public class MyGrammarVisitor extends AbstractParseTreeVisitor<CompilerTree> imp
 
         startNewLocal();
 
-        Variable variable = this.local.instanciateVariable(ctx.ID().getText());
+        Variable variable = this.local.instanciateVariable(ctx.ID().getText(), TypeClass.getType(ctx.type().getText()));
         Block content = visitBlock(ctx.block(), false);
 
         return new Foreach(variable, expr, content);
